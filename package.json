@@ -1,0 +1,16 @@
+{
+  "name": "aw_chatapp",
+  "version": "1.0.0",
+  "description": "Chat app ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Wallberg",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.4.0"
+  }
+}
