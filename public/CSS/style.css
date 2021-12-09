@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+p,h1, h2, h3, h4, h5, h6 {
+    padding: 4px;
+    color: white;
+}
+
+td {
+    border: 4px solid darkcyan;
+    border-collapse: collapse;
+    vertical-align: top;
+    padding: 0;
+    background-color: cadetblue;
+}
+
+
+
+table {
+    height: 100%;
+    width: 100%;
+}
+
+#usersInner {
+    width: 200px;
+}
+
+#outputOuter {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#outputInner {
+    position: absolute;
+    overflow: hidden;
+    overflow-y: auto;
+    height: inherit;
+    width: inherit;
+    background-color: cadetblue;
+}
+
+#inputOuter { 
+    padding: 8px;
+    display: block;
+}
+
+#inputInner { 
+    border: none; 
+    font-size: large;
+    background-color: rgb(139, 174, 175);
+    width: 100%;
+    resize: none;
+    padding: 8px;
+    display: block;
+    color: white;
+}
+
+#inputInner:focus { 
+    outline: none; 
+}
+
+/* Grid Objects and Properties*/
+main {
+    grid-area: main;
+    color: white;
+    background-color: darkcyan;
+}
+
+header {
+    grid-area: header;
+    background-color: rgb(0, 70, 70);
+    color: white;
+    text-align: center;
+}
+
+footer {
+    grid-area: footer;
+    background-color: rgb(0, 70, 70);
+    color: white;
+    text-align: center;
+}
+
+body {
+    background-color: darkcyan;
+    display: grid;
+    grid-template-columns: 1fr minmax(800px, 2fr) 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+    'header header header'
+    '. main .'
+    'footer footer footer'
+    ;
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'header'
+        'main'
+        'footer'
+        ;
+    }
+}
+

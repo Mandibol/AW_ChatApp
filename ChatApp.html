@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascript/clientscript.js"></script>
+    <link rel="stylesheet" href="/CSS/style.css">
+</head>
+<body>
+    <header>
+        <h1>ChatApp</h1>
+    </header>
+    <main>
+        <table>
+            <tr>
+                <td id="outputOuter">
+                    <div id="outputInner"></div>
+                </td>
+                <td rowspan="2">
+                    <h2>Online Users:</h2>
+                    <div id="usersInner"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form id="inputOuter">
+                        <input id="inputInner">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </main>
+    <footer><p>Copyright © Alexander Wallberg 2021</p></footer>
+</body>
+</html>

@@ -1,49 +1,54 @@
 //Trigga "connection"
-let socket = io();
+const socket = io({ autoConnect: false });
 
-//Trigga en "klientknackning"
-socket.emit("klientknackning");
-
-//lyssna på serverknackning
-socket.on("serverknackning", () => {
-    console.log("servern knackade tillbaka");
-});
-
-socket.emit("message", "Klienten säger hej");
-
-socket.on("message", (data) => {
-    console.log("Meddelande från server: " + data);
-});
-
-socket.on("dataFromServer", (data) => {
-    console.log("Meddelande från server: " + data.language + ": " +data.text);
-});
-/*
-let message = prompt("Skriv Något!");
-socket.emit("chat-message", message);
-
-socket.on("chat-message", (data) => {
-    console.log("En annan klient:" + data);
-});
-*/
+function parseMessage(data){
+    let html = `<h6>${data.sender} ${data.time.substring(11,16)}</h6><p>${data.message}</p>`
+    return html;     
+};
 
 window.onload = () => {   
-    let output = document.getElementById("output");
+    const output = document.getElementById("outputInner");
+    const input = document.getElementById("inputInner");
+    const inputForm = document.getElementById("inputOuter");
+    const usersDisplay = document.getElementById("usersInner");
+    const userName = prompt("Välj Ett användarnamn");
+    socket.auth = { userName };
+    socket.connect();
     
-    document.getElementById("form").addEventListener("submit", (evt) =>{
+    //Send Message
+    inputForm.addEventListener("submit", (evt) =>{
         evt.preventDefault();
-        let message = document.getElementById("message").value;
-        socket.emit("chat-message", message);
-        document.getElementById("message").value = "";
+        let message = input.value;
+        socket.emit("message", message);
+        input.value = "";
 
-        let tid = new Date().toISOString().substring(11,16);
-        let html = `<p>Du skrev (${tid}): ${message}</p>`
-        output.innerHTML = html;  
+        const msgObj = {};
+        msgObj.sender = userName;
+        msgObj.time = new Date().toISOString()
+        msgObj.message = message;
+        output.innerHTML += parseMessage(msgObj);
     });
 
-    socket.on("chat-message", (data) => {
-        let tid = new Date().toISOString().substring(11,16);
-        let html = `<p>En annan klient skrev (${tid}): ${data}</p>`
-        output.innerHTML = html; 
+    //Recieve Message
+    socket.on("message", (data) => {
+        output.innerHTML += parseMessage(data); 
     });
+
+    //A user connected
+    socket.on("user_action", (data) => {
+        output.innerHTML += '<h5>' + data + '</h5>';
+    });
+
+    //get list of all users
+    socket.on("users_online", (data) => {
+        let html = "";
+        data.forEach(element => {
+            html += '<p>' + element + '</p>';
+        });
+        usersDisplay.innerHTML = html;
+    });
+
+    socket.onAny((event, ...args) => {
+        console.log(event, args);
+      });
 }
