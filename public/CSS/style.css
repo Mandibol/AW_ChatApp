@@ -4,6 +4,26 @@
     margin: 0;
 }
 
+#chat {
+    display: none;
+}
+
+#userNameInputForm {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 20%;
+}
+#userNameInputForm > label { 
+    font-size: larger;
+    width: 100%;
+    resize: none;
+    padding: 8px;
+    display: block;
+    color: white;
+    text-align: center;
+}
+
 html, body {
     margin: 0;
     height: 100vh;
@@ -14,6 +34,14 @@ p,h1, h2, h3, h4, h5, h6 {
     padding: 4px;
     color: white;
 }
+h6 {
+    color: teal;
+    font-size: small;
+}
+
+h5 {
+    color: teal;
+}
 
 td {
     border: 4px solid darkcyan;
@@ -23,24 +51,32 @@ td {
     background-color: cadetblue;
 }
 
-
-
 table {
     height: 100%;
     width: 100%;
 }
 
-#usersInner {
+#usersDisplay {
     width: 200px;
 }
 
-#outputOuter {
+#outputTD {
     position: relative;
     height: 100%;
     width: 100%;
 }
 
-#outputInner {
+#inputTD {
+    vertical-align: middle;
+    height: 40px;
+}
+
+#serverMsgTD {
+    vertical-align: middle;
+    height: 32px;
+}
+
+#chatOutput {
     position: absolute;
     overflow: hidden;
     overflow-y: auto;
@@ -49,23 +85,22 @@ table {
     background-color: cadetblue;
 }
 
-#inputOuter { 
+#chatInputForm { 
     padding: 8px;
-    display: block;
+    margin: 0;
 }
 
-#inputInner { 
+input { 
     border: none; 
     font-size: large;
     background-color: rgb(139, 174, 175);
     width: 100%;
     resize: none;
     padding: 8px;
-    display: block;
     color: white;
 }
 
-#inputInner:focus { 
+input:focus { 
     outline: none; 
 }
 
