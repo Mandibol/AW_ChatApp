@@ -66,9 +66,11 @@ table {
     width: 100%;
 }
 
-#inputTD {
+.inputTD {
     vertical-align: middle;
     height: 40px;
+    padding: 8px;
+    margin: 0;
 }
 
 #serverMsgTD {
@@ -85,12 +87,8 @@ table {
     background-color: cadetblue;
 }
 
-#chatInputForm { 
-    padding: 8px;
-    margin: 0;
-}
 
-input { 
+input, select { 
     border: none; 
     font-size: large;
     background-color: rgb(139, 174, 175);
@@ -100,7 +98,7 @@ input {
     color: white;
 }
 
-input:focus { 
+input:focus, select:focus{ 
     outline: none; 
 }
 

@@ -34,6 +34,7 @@ window.onload = () => {
         userName = userNameInput.value;
         socket.auth = { userName };
         socket.connect();
+        socket.emit("users_online", false);   
         //Show Chat and hide login
         userNameInputForm.reset();
         userNameInputForm.style.display = "none";
@@ -53,28 +54,30 @@ window.onload = () => {
     //Send Message
     inputForm.addEventListener("submit", (evt) =>{
         evt.preventDefault();
-        let message = input.value;
-        input.value = "";
-        const msgObj = {};
-        msgObj.sender = userName;
-        msgObj.time = new Date().toISOString()
-        msgObj.message = message;
-        //send message to all
-        if (selectUser.value === "none"){
-            socket.emit("message", msgObj);
-            msgObj.sender = "Du skrev:";
-        }
-        //send private message
-        else{
-            msgObj.id = selectUser.value;
-            msgObj.sender = `${msgObj.sender} viskar:`
-            socket.emit("private_message", msgObj)
-            let user = userList.find(obj => obj.id === selectUser.value);
-            msgObj.sender = `Du viskar till: ${user.userName}`
-        }
-        output.innerHTML += parseMessage(msgObj);
-        autoScroll();
-        socket.emit("user_writing", false);
+        if (input.value){
+            let message = input.value;
+            input.value = "";
+            const msgObj = {};
+            msgObj.sender = userName;
+            msgObj.time = new Date().toISOString()
+            msgObj.message = message;
+            //send message to all
+            if (selectUser.value === "none"){
+                socket.emit("message", msgObj);
+                msgObj.sender = "Du skrev:";
+            }
+            //send private message
+            else{
+                msgObj.id = selectUser.value;
+                msgObj.sender = `${msgObj.sender} viskar:`
+                socket.emit("private_message", msgObj)
+                let user = userList.find(obj => obj.id === selectUser.value);
+                msgObj.sender = `Du viskar till: ${user.userName}`
+            }
+            output.innerHTML += parseMessage(msgObj);
+            autoScroll();
+            socket.emit("user_writing", false);
+        }   
     });
 
     //Recieve Message
@@ -92,7 +95,9 @@ window.onload = () => {
     //A user connected/disconnected
     socket.on("user_action", (data) => {
         serverMsgTD.innerHTML = '<h5>' + data + '</h5>';
-        socket.emit("users_online", false);
+        if (data.includes("connected")){
+            socket.emit("users_online", false);    
+        }   
     });
 
     //get Chatlog
@@ -107,7 +112,7 @@ window.onload = () => {
     socket.on("users_online", (data) => {
 
         userList = data;
-        let html = "";
+        let html = `<p>${userName}</p>`;
         //Show who is Online
         data.forEach(element => {
             html += `<p>${element.userName}</p>`;
@@ -122,8 +127,4 @@ window.onload = () => {
         });
         selectUser.innerHTML = html;
     });
-
-    socket.onAny((event, ...args) => {
-        console.log(event, args);
-      });
 }

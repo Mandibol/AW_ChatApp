@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
     usersOnline.push(userObj);
 
     //Broadcast that a user has joined the chat 
-    socket.broadcast.emit('user_action', socket.userName + ' joined');
+    socket.broadcast.emit('user_action', socket.userName + ' connected');
     console.log(socket.userName + " Connected")
 
     //Send Chatlog
