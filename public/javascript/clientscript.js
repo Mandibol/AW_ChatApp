@@ -64,12 +64,13 @@ window.onload = () => {
     inputForm.addEventListener("submit", (evt) =>{
         evt.preventDefault();
         if (input.value){
-            let message = escapeHTML(input.value);
+            let message = input.value;
             input.value = "";
-            const msgObj = {};
+            let msgObj = {};
             msgObj.sender = userName;
             msgObj.time = new Date().toISOString()
             msgObj.message = message;
+            msgObj = escapeHTML(msgObj);
             //send message to all
             if (selectUser.value === "none"){
                 socket.emit("message", msgObj);
