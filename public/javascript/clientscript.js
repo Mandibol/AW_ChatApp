@@ -64,7 +64,7 @@ window.onload = () => {
     inputForm.addEventListener("submit", (evt) =>{
         evt.preventDefault();
         if (input.value){
-            let message = input.value;
+            let message = escapeHTML(input.value);
             input.value = "";
             const msgObj = {};
             msgObj.sender = userName;
@@ -83,7 +83,6 @@ window.onload = () => {
                 let user = userList.find(obj => obj.id === selectUser.value);
                 msgObj.sender = `Du viskar till: ${user.userName}`
             }
-            msgObj = escapeHTML(msgObj);
             output.innerHTML += parseMessage(msgObj);
             autoScroll();
             socket.emit("user_writing", false);
