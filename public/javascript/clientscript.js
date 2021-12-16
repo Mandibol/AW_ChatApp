@@ -6,6 +6,15 @@ function parseMessage(data){
     return html;     
 };
 
+//Function to escape bad html
+function escapeHTML(obj) {
+    const tempObj = obj;
+    for (let x in obj) {
+        tempObj[x] = (obj[x]).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    };
+    return tempObj;
+}
+
 window.onload = () => {  
     const userNameInputForm = document.getElementById("userNameInputForm");
     const userNameInput = document.getElementById("userNameInput");
@@ -74,6 +83,7 @@ window.onload = () => {
                 let user = userList.find(obj => obj.id === selectUser.value);
                 msgObj.sender = `Du viskar till: ${user.userName}`
             }
+            msgObj = escapeHTML(msgObj);
             output.innerHTML += parseMessage(msgObj);
             autoScroll();
             socket.emit("user_writing", false);
