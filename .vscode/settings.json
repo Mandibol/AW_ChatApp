@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/10bf1392-816c-4039-bfc6-60d6b28cad5a/resourceGroups/NodeAppsTest/providers/Microsoft.Web/sites/ChatAppAW"
 }
